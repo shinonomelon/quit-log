@@ -1,6 +1,4 @@
 import { FlatCompat } from '@eslint/eslintrc';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import tailwind from 'eslint-plugin-tailwindcss';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -13,11 +11,15 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.config({
-    extends: ['next/core-web-vitals', 'next/typescript']
+    extends: [
+      'next/core-web-vitals', // eslint-config-next
+      'next/typescript', // eslint-config-next
+      'plugin:tailwindcss/recommended', // eslint-plugin-tailwindcss
+      'prettier' // eslint-config-prettier
+    ]
   }),
-  eslintConfigPrettier,
-  ...tailwind.configs['flat/recommended'],
   {
+    files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
       'no-unused-vars': 'warn',
       'no-console': 'warn'
