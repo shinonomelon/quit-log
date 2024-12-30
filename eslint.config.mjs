@@ -15,14 +15,42 @@ const eslintConfig = [
       'next/core-web-vitals', // eslint-config-next
       'next/typescript', // eslint-config-next
       'plugin:tailwindcss/recommended', // eslint-plugin-tailwindcss
+      'plugin:import/recommended', // eslint-plugin-import
       'prettier' // eslint-config-prettier
     ]
   }),
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
-      'no-unused-vars': 'warn',
-      'no-console': 'warn'
+      'no-console': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type'
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          pathGroups: [
+            { pattern: '@/lib/**', group: 'internal', position: 'before' },
+            {
+              pattern: '@/components/**',
+              group: 'internal',
+              position: 'before'
+            },
+            { pattern: '@/types/**', group: 'index', position: 'before' }
+          ],
+          alphabetize: {
+            order: 'asc'
+          },
+          'newlines-between': 'always'
+        }
+      ]
     }
   }
 ];
